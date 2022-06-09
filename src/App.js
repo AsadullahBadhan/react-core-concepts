@@ -1,4 +1,5 @@
 // import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
@@ -9,15 +10,17 @@ function App() {
   ];
 
   const brothers = [
-    { name: 'Badhan', age: '28' },
-    { name: 'Ratan', age: '22' },
-    { name: 'Manik', age: '19' },
-    { name: 'Mahin', age: '8' },
-    { name: 'Sayan', age: '4' }
+    { name: 'Badhan', age: 28 },
+    { name: 'Ratan', age: 22 },
+    { name: 'Manik', age: 19 },
+    { name: 'Mahin', age: 8 },
+    { name: 'Sayan', age: 4 }
   ]
   return (
     <div className="App">
       <header className="App-header">
+        <Count></Count>
+        <Users></Users>
         <Product product={products[0]}></Product>
         <Product product={products[1]}></Product>
         <Product product={products[2]}></Product>
@@ -37,7 +40,7 @@ function Product(props) {
     width: '200px',
     marginBottom: '10px'
   }
-
+  console.log(props)
   return (
     <div style={productStyle}>
       <h2>{name}</h2>
@@ -60,6 +63,33 @@ function Brother(props) {
     <div style={brotherStyle}>
       <h3>Name: {name}</h3>
       <h5>Age: {age}</h5>
+    </div>
+  )
+}
+
+function Count() {
+  const [count, setCount] = useState(10);
+  const handleIncrease = () => {
+    let newCount = count + 1;
+    setCount(newCount);
+  }
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={() => setCount(count - 1)}>Decrease</button>
+      <button onClick={handleIncrease}>Increase</button>
+    </div>
+  )
+}
+
+function Users() {
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    console.log('calling from effect')
+  })
+  return (
+    <div>
+      <h3>dynamic name</h3>
     </div>
   )
 }
