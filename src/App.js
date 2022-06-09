@@ -3,6 +3,16 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [post, setPost] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(res => res.json())
+      .then(data => {
+        const first10 = data.slice(0, 10);
+        setPost(first10);
+      })
+  }, [])
+
   const products = [
     { name: 'Photoshop', price: '$90.99' },
     { name: 'Ilustrator', price: '$80.99' },
@@ -20,7 +30,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Count></Count>
-        <Users></Users>
+        {
+          post.map(post => <Users body={post}></Users>)
+        }
         <Product product={products[0]}></Product>
         <Product product={products[1]}></Product>
         <Product product={products[2]}></Product>
@@ -40,7 +52,6 @@ function Product(props) {
     width: '200px',
     marginBottom: '10px'
   }
-  console.log(props)
   return (
     <div style={productStyle}>
       <h2>{name}</h2>
@@ -58,7 +69,6 @@ function Brother(props) {
     width: '300px',
     marginBottom: '10px'
   }
-  console.log(props)
   return (
     <div style={brotherStyle}>
       <h3>Name: {name}</h3>
@@ -82,14 +92,12 @@ function Count() {
   )
 }
 
-function Users() {
-  const [user, setUser] = useState([]);
-  useEffect(() => {
-    console.log('calling from effect')
-  })
+function Users(props) {
+  const { body } = props.body;
   return (
-    <div>
-      <h3>dynamic name</h3>
+    <div style={{ border: '1px solid cyan', margin: '10px 0', padding: '0 10px', textAlign: 'left' }}>
+      <h2>dynamic user name: </h2>
+      <p>{body}</p>
     </div>
   )
 }
