@@ -31,7 +31,7 @@ function App() {
       <header className="App-header">
         <Count></Count>
         {
-          post.map(post => <Users body={post}></Users>)
+          post.map(data => <Users data={data}></Users>)
         }
         <Product product={products[0]}></Product>
         <Product product={products[1]}></Product>
@@ -93,10 +93,17 @@ function Count() {
 }
 
 function Users(props) {
-  const { body } = props.body;
+  const { title, body } = props.data;
+  const userStyle = {
+    width: '80%',
+    border: '1px solid cyan',
+    margin: '10px 0',
+    padding: '0 10px',
+    textAlign: 'left'
+  }
   return (
-    <div style={{ border: '1px solid cyan', margin: '10px 0', padding: '0 10px', textAlign: 'left' }}>
-      <h2>dynamic user name: </h2>
+    <div style={userStyle}>
+      <h2>{title}</h2>
       <p>{body}</p>
     </div>
   )
